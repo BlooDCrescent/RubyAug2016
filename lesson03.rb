@@ -53,3 +53,29 @@ puts File.mtime("lesson03.rb")
 puts Time.now
 puts Time.now.friday?
 puts Time.now.zone
+
+
+
+
+elements = [:one, :two, :three, :four]
+
+def combinations *args, group_size
+  all = []
+  current = []
+  def subcombo start, length_left, all, current, args
+    for i in start...(args.length)
+      current.push(args[i])
+      if length_left == 1
+        all.push(current.clone)
+      else
+        subcombo(start + 1, length_left - 1, all, current, args)
+      end
+      current.pop()
+      start += 1
+    end
+  end
+  subcombo(0, group_size, all, current, args)
+  return all
+end
+
+print combinations(*elements, 3)
